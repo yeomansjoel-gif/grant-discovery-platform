@@ -1,3 +1,5 @@
+**File: `package.json`**
+```json
 {
   "name": "grant-discovery-platform",
   "version": "1.0.0",
@@ -5,9 +7,31 @@
   "main": "backend/server.js",
   "scripts": {
     "start": "node backend/server.js",
-    "dev": "nodemon backend/server.js"
+    "dev": "nodemon backend/server.js",
+    "build": "echo 'Build complete'",
+    "deploy": "npm run build && npm start"
   },
-  "keywords": ["grants", "small-business", "funding", "ai"],
-  "author": "Your Name",
-  "license": "MIT"
+  "keywords": [
+    "grants",
+    "small-business", 
+    "funding",
+    "ai",
+    "discovery",
+    "platform"
+  ],
+  "author": "Grant Discovery Platform Team",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "helmet": "^7.1.0",
+    "compression": "^1.7.4"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/grant-discovery-platform.git"
+  }
 }
