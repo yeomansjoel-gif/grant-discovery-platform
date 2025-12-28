@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "name": "grant-discovery-platform",
   "builds": [
     {
       "src": "backend/server.js",
@@ -16,8 +17,23 @@
       "dest": "/backend/server.js"
     },
     {
+      "src": "/dashboard.html",
+      "dest": "/frontend/dashboard.html"
+    },
+    {
+      "src": "/pricing.html", 
+      "dest": "/frontend/pricing.html"
+    },
+    {
+      "src": "/(.*\\.(css|js|png|jpg|jpeg|gif|svg|ico))",
+      "dest": "/frontend/$1"
+    },
+    {
       "src": "/(.*)",
       "dest": "/frontend/index.html"
     }
-  ]
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  }
 }
