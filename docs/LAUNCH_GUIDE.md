@@ -1,4 +1,4 @@
-### **File: `docs/LAUNCH_GUIDE.md`**
+
 ```markdown
 # Grant Discovery Platform - Launch Guide
 
