@@ -1,0 +1,13 @@
+{
+  "name": "grant-discovery-platform",
+  "version": "1.0.0",
+  "description": "AI-powered grant discovery platform for small businesses",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "nodemon backend/server.js"
+  },
+  "keywords": ["grants", "small-business", "funding", "ai"],
+  "author": "Your Name",
+  "license": "MIT"
+}
