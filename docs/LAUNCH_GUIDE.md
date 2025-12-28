@@ -1,5 +1,3 @@
-
-```markdown
 # Grant Discovery Platform - Launch Guide
 
 ## 🚀 Pre-Launch Checklist
