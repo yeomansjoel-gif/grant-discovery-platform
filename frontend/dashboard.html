@@ -1,422 +1,269 @@
 <!DOCTYPE html>
 <html lang="en">
-    <form id="questionnaire-form" class="questionnaire-form">
-    <!-- form fields -->
-    <button type="submit" id="submit-btn" class="submit-btn">Find My Grants</button>
-</form>
-
-<div class="loading-spinner">
-    <div class="spinner"></div>
-    <p>Finding your perfect grant matches...</p>
-</div>
-
-<div class="error-message"></div>
-<div class="success-message"></div>
-
-<div class="results-section">
-    <h2>Your Grant Matches</h2>
-    <div class="grant-results"></div>
-</div>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - GrantFinder Pro</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Dashboard - Grant Discovery Platform</title>
+    <meta name="description" content="Find grants for your business with our AI-powered matching system. Complete your business profile to get personalized grant recommendations.">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="dashboard.css">
-    <script src="dashboard.js"></script>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💰</text></svg>">
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="navbar dashboard-nav">
+    <nav class="navbar">
         <div class="nav-container">
-            <div class="nav-brand">
-                <i class="fas fa-search-dollar"></i>
-                <span>GrantFinder Pro</span>
+            <div class="nav-logo">
+                <span class="logo-icon">💰</span>
+                <span class="logo-text">GrantFinder</span>
             </div>
             <div class="nav-menu">
                 <a href="index.html" class="nav-link">Home</a>
-                <a href="#" class="nav-link active">Dashboard</a>
-                <a href="#" class="nav-link">My Grants</a>
-                <a href="#" class="nav-link">Applications</a>
-                <div class="user-menu">
-                    <div class="user-avatar">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <div class="user-dropdown">
-                        <a href="#" onclick="showProfile()">Profile</a>
-                        <a href="#" onclick="showSettings()">Settings</a>
-                        <a href="#" onclick="logout()">Logout</a>
-                    </div>
-                </div>
+                <a href="index.html#features" class="nav-link">Features</a>
+                <a href="pricing.html" class="nav-link">Pricing</a>
+                <a href="dashboard.html" class="nav-btn">Dashboard</a>
             </div>
         </div>
     </nav>
 
-    <!-- Dashboard Content -->
+    <!-- Dashboard Container -->
     <div class="dashboard-container">
-        <!-- Sidebar -->
-        <aside class="dashboard-sidebar">
-            <div class="sidebar-menu">
-                <a href="#overview" class="menu-item active" onclick="showSection('overview')">
-                    <i class="fas fa-chart-pie"></i>
-                    <span>Overview</span>
-                </a>
-                <a href="#grants" class="menu-item" onclick="showSection('grants')">
-                    <i class="fas fa-search"></i>
-                    <span>Find Grants</span>
-                </a>
-                <a href="#applications" class="menu-item" onclick="showSection('applications')">
-                    <i class="fas fa-file-alt"></i>
-                    <span>My Applications</span>
-                </a>
-                <a href="#deadlines" class="menu-item" onclick="showSection('deadlines')">
-                    <i class="fas fa-calendar-alt"></i>
-                    <span>Deadlines</span>
-                </a>
-                <a href="#analytics" class="menu-item" onclick="showSection('analytics')">
-                    <i class="fas fa-chart-line"></i>
-                    <span>Analytics</span>
-                </a>
-                <a href="#profile" class="menu-item" onclick="showSection('profile')">
-                    <i class="fas fa-user-cog"></i>
-                    <span>Profile</span>
-                </a>
+        <!-- Dashboard Header -->
+        <div class="dashboard-header">
+            <h1>Find Your Perfect Grants</h1>
+            <p>Complete your business profile below and our AI will match you with relevant funding opportunities in seconds.</p>
+        </div>
+
+        <!-- Business Profile Form -->
+        <form id="questionnaire-form" class="questionnaire-form">
+            <div class="form-group">
+                <label for="businessName">Business Name *</label>
+                <input type="text" id="businessName" name="businessName" required placeholder="Enter your business name">
             </div>
-            
-            <div class="sidebar-upgrade">
-                <div class="upgrade-card">
-                    <h4>Upgrade to Pro</h4>
-                    <p>Unlock unlimited grant matches and premium features</p>
-                    <button class="btn-upgrade" onclick="showUpgrade()">
-                        <i class="fas fa-crown"></i>
-                        Upgrade Now
-                    </button>
-                </div>
+
+            <div class="form-group">
+                <label for="industry">Industry *</label>
+                <select id="industry" name="industry" required>
+                    <option value="">Select your industry</option>
+                    <option value="technology">Technology</option>
+                    <option value="healthcare">Healthcare</option>
+                    <option value="manufacturing">Manufacturing</option>
+                    <option value="retail">Retail</option>
+                    <option value="services">Professional Services</option>
+                    <option value="hospitality">Hospitality & Tourism</option>
+                    <option value="agriculture">Agriculture</option>
+                    <option value="construction">Construction</option>
+                    <option value="education">Education</option>
+                    <option value="energy">Energy</option>
+                    <option value="transportation">Transportation</option>
+                    <option value="food">Food & Beverage</option>
+                    <option value="nonprofit">Nonprofit</option>
+                    <option value="other">Other</option>
+                </select>
             </div>
-        </aside>
 
-        <!-- Main Content -->
-        <main class="dashboard-main">
-            <!-- Overview Section -->
-            <section id="overview-section" class="dashboard-section active">
-                <div class="section-header">
-                    <h1>Dashboard Overview</h1>
-                    <p>Welcome back! Here's your grant discovery summary.</p>
-                </div>
-
-                <!-- Stats Cards -->
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-search"></i>
-                        </div>
-                        <div class="stat-content">
-                            <h3 id="totalMatches">24</h3>
-                            <p>Grant Matches</p>
-                            <span class="stat-change positive">+3 this week</span>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-file-alt"></i>
-                        </div>
-                        <div class="stat-content">
-                            <h3 id="totalApplications">8</h3>
-                            <p>Applications</p>
-                            <span class="stat-change positive">+2 pending</span>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-dollar-sign"></i>
-                        </div>
-                        <div class="stat-content">
-                            <h3 id="potentialFunding">$485K</h3>
-                            <p>Potential Funding</p>
-                            <span class="stat-change positive">+$75K this month</span>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-trophy"></i>
-                        </div>
-                        <div class="stat-content">
-                            <h3 id="successRate">32%</h3>
-                            <p>Success Rate</p>
-                            <span class="stat-change positive">Above average</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Recent Activity -->
-                <div class="dashboard-grid">
-                    <div class="dashboard-card">
-                        <div class="card-header">
-                            <h3>Recent Grant Matches</h3>
-                            <a href="#" onclick="showSection('grants')" class="view-all">View All</a>
-                        </div>
-                        <div class="grant-list" id="recentMatches">
-                            <!-- Populated by JavaScript -->
-                        </div>
-                    </div>
-
-                    <div class="dashboard-card">
-                        <div class="card-header">
-                            <h3>Upcoming Deadlines</h3>
-                            <a href="#" onclick="showSection('deadlines')" class="view-all">View All</a>
-                        </div>
-                        <div class="deadline-list" id="upcomingDeadlines">
-                            <!-- Populated by JavaScript -->
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Quick Actions -->
-                <div class="quick-actions">
-                    <h3>Quick Actions</h3>
-                    <div class="action-buttons">
-                        <button class="action-btn" onclick="startQuestionnaire()">
-                            <i class="fas fa-search"></i>
-                            Find New Grants
-                        </button>
-                        <button class="action-btn" onclick="showSection('applications')">
-                            <i class="fas fa-plus"></i>
-                            Start Application
-                        </button>
-                        <button class="action-btn" onclick="updateProfile()">
-                            <i class="fas fa-edit"></i>
-                            Update Profile
-                        </button>
-                        <button class="action-btn" onclick="exportData()">
-                            <i class="fas fa-download"></i>
-                            Export Data
-                        </button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Grants Section -->
-            <section id="grants-section" class="dashboard-section">
-                <div class="section-header">
-                    <h1>Grant Opportunities</h1>
-                    <p>Discover grants that match your business profile</p>
-                </div>
-
-                <!-- Search and Filters -->
-                <div class="search-filters">
-                    <div class="search-bar">
-                        <i class="fas fa-search"></i>
-                        <input type="text" placeholder="Search grants..." id="grantSearch">
-                    </div>
-                    <div class="filter-buttons">
-                        <select id="industryFilter">
-                            <option value="">All Industries</option>
-                            <option value="technology">Technology</option>
-                            <option value="manufacturing">Manufacturing</option>
-                            <option value="healthcare">Healthcare</option>
-                            <option value="retail">Retail</option>
-                        </select>
-                        <select id="amountFilter">
-                            <option value="">All Amounts</option>
-                            <option value="0-25k">$0 - $25K</option>
-                            <option value="25k-50k">$25K - $50K</option>
-                            <option value="50k-100k">$50K - $100K</option>
-                            <option value="100k+">$100K+</option>
-                        </select>
-                        <select id="deadlineFilter">
-                            <option value="">All Deadlines</option>
-                            <option value="30">Next 30 days</option>
-                            <option value="60">Next 60 days</option>
-                            <option value="90">Next 90 days</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Grant Results -->
-                <div class="grants-grid" id="grantsGrid">
-                    <!-- Populated by JavaScript -->
-                </div>
-            </section>
-
-            <!-- Applications Section -->
-            <section id="applications-section" class="dashboard-section">
-                <div class="section-header">
-                    <h1>My Applications</h1>
-                    <p>Track your grant application progress</p>
-                </div>
-
-                <!-- Application Status Tabs -->
-                <div class="status-tabs">
-                    <button class="tab-btn active" onclick="filterApplications('all')">All Applications</button>
-                    <button class="tab-btn" onclick="filterApplications('draft')">Drafts</button>
-                    <button class="tab-btn" onclick="filterApplications('submitted')">Submitted</button>
-                    <button class="tab-btn" onclick="filterApplications('under-review')">Under Review</button>
-                    <button class="tab-btn" onclick="filterApplications('approved')">Approved</button>
-                    <button class="tab-btn" onclick="filterApplications('rejected')">Rejected</button>
-                </div>
-
-                <!-- Applications List -->
-                <div class="applications-list" id="applicationsList">
-                    <!-- Populated by JavaScript -->
-                </div>
-            </section>
-
-            <!-- Deadlines Section -->
-            <section id="deadlines-section" class="dashboard-section">
-                <div class="section-header">
-                    <h1>Upcoming Deadlines</h1>
-                    <p>Stay on top of your grant application deadlines</p>
-                </div>
-
-                <!-- Calendar View -->
-                <div class="calendar-container">
-                    <div class="calendar-header">
-                        <button onclick="previousMonth()" class="calendar-nav">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                        <h3 id="currentMonth">December 2024</h3>
-                        <button onclick="nextMonth()" class="calendar-nav">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-                    </div>
-                    <div class="calendar-grid" id="calendarGrid">
-                        <!-- Populated by JavaScript -->
-                    </div>
-                </div>
-
-                <!-- Deadline List -->
-                <div class="deadline-details">
-                    <h3>This Month's Deadlines</h3>
-                    <div class="deadline-items" id="deadlineItems">
-                        <!-- Populated by JavaScript -->
-                    </div>
-                </div>
-            </section>
-
-            <!-- Analytics Section -->
-            <section id="analytics-section" class="dashboard-section">
-                <div class="section-header">
-                    <h1>Analytics & Insights</h1>
-                    <p>Track your grant discovery and application performance</p>
-                </div>
-
-                <!-- Analytics Charts -->
-                <div class="analytics-grid">
-                    <div class="chart-card">
-                        <h3>Application Success Rate</h3>
-                        <canvas id="successChart"></canvas>
-                    </div>
-                    <div class="chart-card">
-                        <h3>Funding by Industry</h3>
-                        <canvas id="industryChart"></canvas>
-                    </div>
-                    <div class="chart-card">
-                        <h3>Monthly Activity</h3>
-                        <canvas id="activityChart"></canvas>
-                    </div>
-                    <div class="chart-card">
-                        <h3>Grant Sources</h3>
-                        <canvas id="sourcesChart"></canvas>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Profile Section -->
-            <section id="profile-section" class="dashboard-section">
-                <div class="section-header">
-                    <h1>Business Profile</h1>
-                    <p>Keep your information up to date for better grant matching</p>
-                </div>
-
-                <!-- Profile Form -->
-                <div class="profile-form">
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label>Business Name</label>
-                            <input type="text" id="businessName" value="Tech Innovations LLC">
-                        </div>
-                        <div class="form-group">
-                            <label>Industry</label>
-                            <select id="profileIndustry">
-                                <option value="technology" selected>Technology</option>
-                                <option value="manufacturing">Manufacturing</option>
-                                <option value="healthcare">Healthcare</option>
-                                <option value="retail">Retail</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Business Stage</label>
-                            <select id="profileStage">
-                                <option value="startup" selected>Startup</option>
-                                <option value="small">Small Business</option>
-                                <option value="medium">Medium Business</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Location</label>
-                            <input type="text" id="profileLocation" value="Austin, TX">
-                        </div>
-                        <div class="form-group">
-                            <label>Number of Employees</label>
-                            <select id="profileEmployees">
-                                <option value="1-5" selected>1-5 employees</option>
-                                <option value="6-25">6-25 employees</option>
-                                <option value="26-100">26-100 employees</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Annual Revenue</label>
-                            <select id="profileRevenue">
-                                <option value="50k-250k" selected>$50K - $250K</option>
-                                <option value="250k-1m">$250K - $1M</option>
-                                <option value="1m+">$1M+</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="form-actions">
-                        <button class="btn-primary" onclick="saveProfile()">Save Changes</button>
-                        <button class="btn-secondary" onclick="resetProfile()">Reset</button>
-                    </div>
-                </div>
-            </section>
-        </main>
-    </div>
-
-    <!-- Modals -->
-    <div id="upgradeModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Upgrade to Professional</h2>
-                <span class="close" onclick="closeUpgrade()">&times;</span>
+            <div class="form-group">
+                <label for="businessSize">Business Size *</label>
+                <select id="businessSize" name="businessSize" required>
+                    <option value="">Select business size</option>
+                    <option value="startup">Startup (Pre-revenue)</option>
+                    <option value="small">Small (1-50 employees)</option>
+                    <option value="medium">Medium (51-250 employees)</option>
+                    <option value="large">Large (250+ employees)</option>
+                </select>
             </div>
-            <div class="upgrade-content">
-                <div class="upgrade-benefits">
-                    <h3>Unlock Premium Features</h3>
-                    <ul>
-                        <li><i class="fas fa-check"></i> Unlimited grant matches</li>
-                        <li><i class="fas fa-check"></i> Advanced analytics</li>
-                        <li><i class="fas fa-check"></i> Priority support</li>
-                        <li><i class="fas fa-check"></i> Application templates</li>
-                        <li><i class="fas fa-check"></i> Success scoring</li>
-                    </ul>
-                </div>
-                <div class="upgrade-pricing">
-                    <div class="price-display">
-                        <span class="currency">$</span>
-                        <span class="amount">29</span>
-                        <span class="period">/month</span>
-                    </div>
-                    <button class="btn-upgrade-now">Start Free Trial</button>
-                    <p class="trial-note">14-day free trial, cancel anytime</p>
-                </div>
+
+            <div class="form-group">
+                <label for="employees">Number of Employees</label>
+                <input type="number" id="employees" name="employees" min="0" max="10000" placeholder="e.g., 15">
             </div>
+
+            <div class="form-group">
+                <label for="revenue">Annual Revenue (USD)</label>
+                <select id="revenue" name="revenue">
+                    <option value="">Select revenue range</option>
+                    <option value="0">Pre-revenue</option>
+                    <option value="50000">Under $50,000</option>
+                    <option value="100000">$50,000 - $100,000</option>
+                    <option value="250000">$100,000 - $250,000</option>
+                    <option value="500000">$250,000 - $500,000</option>
+                    <option value="1000000">$500,000 - $1M</option>
+                    <option value="5000000">$1M - $5M</option>
+                    <option value="10000000">$5M+</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="location">Business Location *</label>
+                <select id="location" name="location" required>
+                    <option value="">Select your state</option>
+                    <option value="AL">Alabama</option>
+                    <option value="AK">Alaska</option>
+                    <option value="AZ">Arizona</option>
+                    <option value="AR">Arkansas</option>
+                    <option value="CA">California</option>
+                    <option value="CO">Colorado</option>
+                    <option value="CT">Connecticut</option>
+                    <option value="DE">Delaware</option>
+                    <option value="FL">Florida</option>
+                    <option value="GA">Georgia</option>
+                    <option value="HI">Hawaii</option>
+                    <option value="ID">Idaho</option>
+                    <option value="IL">Illinois</option>
+                    <option value="IN">Indiana</option>
+                    <option value="IA">Iowa</option>
+                    <option value="KS">Kansas</option>
+                    <option value="KY">Kentucky</option>
+                    <option value="LA">Louisiana</option>
+                    <option value="ME">Maine</option>
+                    <option value="MD">Maryland</option>
+                    <option value="MA">Massachusetts</option>
+                    <option value="MI">Michigan</option>
+                    <option value="MN">Minnesota</option>
+                    <option value="MS">Mississippi</option>
+                    <option value="MO">Missouri</option>
+                    <option value="MT">Montana</option>
+                    <option value="NE">Nebraska</option>
+                    <option value="NV">Nevada</option>
+                    <option value="NH">New Hampshire</option>
+                    <option value="NJ">New Jersey</option>
+                    <option value="NM">New Mexico</option>
+                    <option value="NY">New York</option>
+                    <option value="NC">North Carolina</option>
+                    <option value="ND">North Dakota</option>
+                    <option value="OH">Ohio</option>
+                    <option value="OK">Oklahoma</option>
+                    <option value="OR">Oregon</option>
+                    <option value="PA">Pennsylvania</option>
+                    <option value="RI">Rhode Island</option>
+                    <option value="SC">South Carolina</option>
+                    <option value="SD">South Dakota</option>
+                    <option value="TN">Tennessee</option>
+                    <option value="TX">Texas</option>
+                    <option value="UT">Utah</option>
+                    <option value="VT">Vermont</option>
+                    <option value="VA">Virginia</option>
+                    <option value="WA">Washington</option>
+                    <option value="WV">West Virginia</option>
+                    <option value="WI">Wisconsin</option>
+                    <option value="WY">Wyoming</option>
+                    <option value="DC">Washington D.C.</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="stage">Business Stage *</label>
+                <select id="stage" name="stage" required>
+                    <option value="">Select business stage</option>
+                    <option value="idea">Idea Stage</option>
+                    <option value="startup">Startup (0-2 years)</option>
+                    <option value="growth">Growth Stage (2-5 years)</option>
+                    <option value="established">Established (5+ years)</option>
+                    <option value="expansion">Expansion/Scaling</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="demographics">Business Demographics</label>
+                <select id="demographics" name="demographics">
+                    <option value="none">None of the below</option>
+                    <option value="minority">Minority-owned</option>
+                    <option value="women">Women-owned</option>
+                    <option value="veteran">Veteran-owned</option>
+                    <option value="disabled">Disabled-owned</option>
+                    <option value="disadvantaged">Socially/Economically Disadvantaged</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="fundingAmount">Funding Amount Needed</label>
+                <select id="fundingAmount" name="fundingAmount">
+                    <option value="">Select funding range</option>
+                    <option value="5000">Under $5,000</option>
+                    <option value="10000">$5,000 - $10,000</option>
+                    <option value="25000">$10,000 - $25,000</option>
+                    <option value="50000">$25,000 - $50,000</option>
+                    <option value="100000">$50,000 - $100,000</option>
+                    <option value="250000">$100,000 - $250,000</option>
+                    <option value="500000">$250,000 - $500,000</option>
+                    <option value="1000000">$500,000+</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="fundingPurpose">Primary Funding Purpose</label>
+                <select id="fundingPurpose" name="fundingPurpose">
+                    <option value="">Select funding purpose</option>
+                    <option value="startup">Starting a business</option>
+                    <option value="expansion">Business expansion</option>
+                    <option value="equipment">Equipment purchase</option>
+                    <option value="inventory">Inventory/Working capital</option>
+                    <option value="research">Research & Development</option>
+                    <option value="marketing">Marketing & Sales</option>
+                    <option value="hiring">Hiring employees</option>
+                    <option value="technology">Technology upgrade</option>
+                    <option value="real-estate">Real estate/Facilities</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <button type="submit" id="submit-btn" class="submit-btn">Find My Grants</button>
+        </form>
+
+        <!-- Loading Spinner -->
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Finding your perfect grant matches...</p>
+        </div>
+
+        <!-- Messages -->
+        <div class="error-message"></div>
+        <div class="success-message"></div>
+
+        <!-- Results Section -->
+        <div class="results-section">
+            <h2>Your Grant Matches</h2>
+            <p>Based on your business profile, here are the grants you're most likely to qualify for:</p>
+            <div class="grant-results"></div>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <span class="logo-icon">💰</span>
+                        <span class="logo-text">GrantFinder</span>
+                    </div>
+                    <p>AI-powered grant discovery for small businesses</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Product</h4>
+                    <a href="index.html#features">Features</a>
+                    <a href="pricing.html">Pricing</a>
+                    <a href="dashboard.html">Dashboard</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <a href="#help">Help Center</a>
+                    <a href="#contact">Contact Us</a>
+                    <a href="#api">API Docs</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <a href="#about">About</a>
+                    <a href="#privacy">Privacy</a>
+                    <a href="#terms">Terms</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 GrantFinder. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
     <script src="app.js"></script>
     <script src="dashboard.js"></script>
 </body>
