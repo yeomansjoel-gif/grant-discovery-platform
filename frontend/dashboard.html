@@ -1,5 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+    <form id="questionnaire-form" class="questionnaire-form">
+    <!-- form fields -->
+    <button type="submit" id="submit-btn" class="submit-btn">Find My Grants</button>
+</form>
+
+<div class="loading-spinner">
+    <div class="spinner"></div>
+    <p>Finding your perfect grant matches...</p>
+</div>
+
+<div class="error-message"></div>
+<div class="success-message"></div>
+
+<div class="results-section">
+    <h2>Your Grant Matches</h2>
+    <div class="grant-results"></div>
+</div>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +25,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="dashboard.css">
+    <script src="dashboard.js"></script>
 </head>
 <body>
     <!-- Navigation -->
